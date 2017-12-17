@@ -1,0 +1,3 @@
+# RPG-Dungeon
+Text-based survival rpg that plays a bit like pokemon  
+Details to come once the game becomes sufficiently playable...
