@@ -84,6 +84,9 @@ public class GamePlay {
 			exhaustCount += 1;
 		}
 		
+		if (Player.getDeepestRoom() < difficulty)
+			Player.setDeepestRoom(difficulty);
+		
 		Room room = new Room(difficulty);
 		
 		Monster[] monsterList = room.generateMonsters();
@@ -109,7 +112,7 @@ public class GamePlay {
 		for (int i = 0; i < nbMonster; i++) {
 			System.out.println("\nBatte " + (i+1) + ": " + Player.getBattleStats() + " vs " + monster[i]);
 			
-			System.out.print("\nPress Enter to continue.");
+			System.out.print("Press Enter to continue.");
 			choice = key.nextLine();
 				
 				if(Math.random()*Player.getDEX() >= Math.random()*monster[i].getDEX()) {
@@ -183,9 +186,10 @@ public class GamePlay {
 				Player.setSta(Player.getSta() - 1);
 				Player.setXP(Player.getXP() + monster[i].getID() + 1);
 				Player.setMoni(Player.getMoni() + monster[i].getLevel()*3);
-				System.out.println("\nYou've won the battle. You gained +" + (monster[i].getID()+1) + "XP, +" + (monster[i].getLevel()*3) + "Moni and -1STA");
+				System.out.println("\nYou won the battle. You gained +" + (monster[i].getID()+1) + "XP, +" + (monster[i].getLevel()*3) + "Moni and -1STA");
 				Player.setNbOfKills(Player.getNbOfKills() + 1);
 				playerLast = false;
+	
 				System.out.print("\nPress Enter to continue.");
 				choice = key.nextLine();
 			}
@@ -246,9 +250,11 @@ public class GamePlay {
 				case "R":
 					loading("Resting", 3, 1000);
 					Player.setSta(Player.getMaxSta());
-					Player.setATK(Player.getATK() * 2 * exhaustCount);
-					Player.setDEX(Player.getDEX() * 2 * exhaustCount);
-					exhaustCount = 0;
+					if (exhaustCount > 0) {
+						Player.setATK(Player.getATK() * 2 * exhaustCount);
+						Player.setDEX(Player.getDEX() * 2 * exhaustCount);
+						exhaustCount = 0;
+					}
 					System.out.print("\nYou have recovered all your stamina!\n");
 					home();
 					break;
@@ -317,6 +323,10 @@ public class GamePlay {
 			else {
 				if (qty * cost > Player.getXP()) {
 					System.out.print("Sorry, you don't have enough XP for that.\n");
+					return (0);
+				}
+				else if (Player.getSta() == 0) {
+					System.out.print("You're exhausted! Please go rest before training! \n");
 					return (0);
 				}
 				else {

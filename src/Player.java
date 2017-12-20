@@ -1,16 +1,14 @@
 
 public class Player {
-	private static int atk = 0;
+	private static int atk = 2;
 	private static int def = 0;
-	private static int dex = 0;
+	private static int dex = 2;
 	private static int hp = 10;
 	private static int nbOfKills;
-	private static int highestRoom;
-	private static int availQuests;
-	private static int CompQuests;
+	private static int deepestRoom;
 	private static int maxSta;
 	private static int maxHP;
-	private static int sta = 3;
+	private static int sta = 10;
 	private static int moni;
 	private static int xp = 10;
 	private static String name;
@@ -18,11 +16,18 @@ public class Player {
 	
 	public static String getString() {
 		return ("Your Stats \n\nHP: " + getHP() + "/" + getMaxHP() + "   ATK: " + getATK() + "   DEF: " + getDEF() + "   DEX: " + getDEX() + "\nSTA: " + getSta() + "/" +
-	getMaxSta() + "   XP: " + getXP() + "   Moni: " + getMoni() + "   Monsters Defeated: " + getNbOfKills());
+	getMaxSta() + "   XP: " + getXP() + "   Moni: " + getMoni() + "   Monsters Defeated: " + getNbOfKills()) + "   Deepest Room Attained: " + getDeepestRoom();
 	}
 	
 	public static String getBattleStats() {
 		return (Player.getName() + "(" + getATK() + "ATK, " + getDEF() + "DEF, " + getDEX() + "DEX, " + getHP() + "/" + getMaxHP() + "HP)");
+	}
+	
+	public static int getDeepestRoom() {
+		return(deepestRoom);
+	}
+	public static void setDeepestRoom(int x) {
+		deepestRoom = x;
 	}
 	
 	public static String getName() {
@@ -40,7 +45,7 @@ public class Player {
 	}
 	
 	public static int getMaxSta() {
-		return (3 + getNbOfKills()/5);
+		return (10 + getNbOfKills()/2);
 	}
 	public static void setMaxSta(int x) {
 		maxSta = x;
