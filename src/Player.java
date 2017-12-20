@@ -47,7 +47,10 @@ public class Player {
 	}
 	
 	public static int getSta() {
-		return (sta);
+		if (sta >= 0)
+			return (sta);
+		else
+			return (0);
 	}
 	public static void setSta(int x) {
 		sta = x;
@@ -82,7 +85,10 @@ public class Player {
 	}
 	
 	public static int getHP() {
-		return(hp);
+		if (hp >= 0)
+			return(hp);
+		else
+			return (0);
 	}
 	public static void setHP(int x) {
 		hp = x;

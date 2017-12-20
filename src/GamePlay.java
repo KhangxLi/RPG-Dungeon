@@ -6,6 +6,7 @@ public class GamePlay {
 	static String choice;
 	static boolean gameOver = false;
 	static boolean inDungeon = false;
+	static int exhaustCount = 0;
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -27,7 +28,7 @@ public class GamePlay {
 					menu();
 					break;
 				case "P": 
-					System.out.print(Player.getString() + "\n\nM-Menu\n\n>>>"); 
+					System.out.print(Player.getString() + "\n\nM-Menu\n\n>>> "); 
 					break;
 				case "H":
 					loading("Getting comfortable", 1, 500);
@@ -45,7 +46,7 @@ public class GamePlay {
 					dungeon();
 					break;
 				default: 
-					System.out.print("Sorry, that is not a valid option.\n\n>>>");
+					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
 					break;
 			}
 		} while (!gameOver);
@@ -54,8 +55,8 @@ public class GamePlay {
 	}
 	
 	public static void menu() {
-		System.out.print("\nWhat would you like to do? \nD-Dungeon   G-Gym   L-Learn Skills   S-Store   \nH-Home   P-" + Player.getName() + 
-				"'s Stats   I-Instructions   O-Options \n\n>>> ");
+		System.out.print("\nWhat would you like to do? \nD-Dungeon   G-Gym   S-Store   H-Home   \nP-" + Player.getName() + 
+				"'s Profile   I-Instructions   O-Options \n\n>>> ");
 	}
 	
 	public static void instruction() {
@@ -77,6 +78,12 @@ public class GamePlay {
 	}
 	
 	public static void enterRoom(int difficulty) throws InterruptedException {
+		if (Player.getSta() == 0) {
+			Player.setATK(Player.getATK()/2);
+			Player.setDEX(Player.getDEX()/2);
+			exhaustCount += 1;
+		}
+		
 		Room room = new Room(difficulty);
 		
 		Monster[] monsterList = room.generateMonsters();
@@ -89,7 +96,7 @@ public class GamePlay {
 			System.out.println(monsterList[i]);
 		}
 
-		System.out.print("Press enter to continue.");
+		System.out.print("Press Enter to continue.");
 		choice = key.nextLine();
 		battle(room.getNbOfMonsters(), monsterList);
 	}
@@ -102,10 +109,8 @@ public class GamePlay {
 		for (int i = 0; i < nbMonster; i++) {
 			System.out.println("\nBatte " + (i+1) + ": " + Player.getBattleStats() + " vs " + monster[i]);
 			
-			System.out.print("\nWhat's your next move? \"Enter\"-Fight \n>>>");
+			System.out.print("\nPress Enter to continue.");
 			choice = key.nextLine();
-			
-		//	if (choice.equalsIgnoreCase("C")) {
 				
 				if(Math.random()*Player.getDEX() >= Math.random()*monster[i].getDEX()) {
 					System.out.println("\n" + Player.getName() + " has the initiative!");
@@ -123,7 +128,7 @@ public class GamePlay {
 				do {
 					if (monster[i].getHP() <= 0)
 						break;
-					System.out.print("Press enter to continue.");
+					System.out.print("Press Enter to continue.");
 					choice = key.nextLine();
 					
 					if (playerLast) {
@@ -170,7 +175,6 @@ public class GamePlay {
 						}
 					}
 				} while (Player.getHP() > 0 && monster[i].getHP() > 0);
-			//}
 			
 			if (Player.getHP() <= 0) {
 				gameOver();
@@ -187,7 +191,11 @@ public class GamePlay {
 			}
 		}
 		
-		System.out.print("You have defeated every monster in this room. \n\nHP: " + Player.getHP() + "   STA: " + Player.getSta() + "\nEnter next room (y/n)? ");
+		System.out.print("\nYou have defeated every monster in this room. \n\nHP: " + Player.getHP() + "   STA: " + Player.getSta());
+		if (Player.getSta() == 0)
+			System.out.println("\nYou are tired! Your current ATK and DEX will be reduced by half in the next room!");
+		
+		System.out.print("\nEnter next room (y/n)? ");
 		choice = key.nextLine();
 		if (!choice.equalsIgnoreCase("y")) {
 			System.out.print("\nAre you sure? Room progress will be lost (y/n). ");
@@ -216,13 +224,18 @@ public class GamePlay {
 	}
 	
 	public static void home() throws InterruptedException {
-		System.out.print("\nR-Rest   E-Eat   I-Inventory   M-Menu \n\n>>>");
+		System.out.print("\nR-Rest   E-Eat   I-Inventory   M-Menu \n\n>>> ");
 		choice = key.nextLine();
 		do {
 			switch (choice.toUpperCase()) {
 				case "M":
 					loading("Getting ready", 1, 500);
 					menu();
+					break;
+				case "P": 
+					System.out.print(Player.getString() + "\n\nPress Enter to go back.");
+					choice = key.nextLine();
+					home();
 					break;
 				case "E":
 					loading("Eating", 3, 500);
@@ -233,6 +246,9 @@ public class GamePlay {
 				case "R":
 					loading("Resting", 3, 1000);
 					Player.setSta(Player.getMaxSta());
+					Player.setATK(Player.getATK() * 2 * exhaustCount);
+					Player.setDEX(Player.getDEX() * 2 * exhaustCount);
+					exhaustCount = 0;
 					System.out.print("\nYou have recovered all your stamina!\n");
 					home();
 					break;
@@ -251,7 +267,7 @@ public class GamePlay {
 		
 		System.out.print("\nXP: " + Player.getXP() + "   STA: " + Player.getSta() + "/" + Player.getMaxSta() +
 				"\nATK: " + Player.getATK() + "   A-Attack(" + atkCost + "XP) \nDEF: " + Player.getDEF() + "   B-Defense(" + defCost + "XP) \nDEX: " +
-				Player.getDEX() + "   C-Dexterity(" + dexCost + "XP) \n\nM-Menu \n\n>>>");
+				Player.getDEX() + "   C-Dexterity(" + dexCost + "XP) \n\nM-Menu \n\n>>> ");
 		
 		choice = key.nextLine();
 		do {
@@ -268,12 +284,16 @@ public class GamePlay {
 					Player.setDEX(Player.getDEX() + training(dexCost, "DEX"));
 					gym();
 					break;
+				case "P": 
+					System.out.print(Player.getString() + "\n\nPress Enter to go back.");
+					choice = key.nextLine();
+					gym();
 				case "M":
 					loading("Thank you for training with us!", 1, 500);
 					menu();
 					break;
 				default:
-					System.out.print("Sorry, that is not a valid option.\n\n>>>");
+					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
 					choice = key.nextLine();
 					break;
 			}
