@@ -19,11 +19,11 @@ public class Player {
 	private static int deepestRoom; // Farthest room attained by player
 	
 	// Item attributes
-	private static int nbHPPotion; // Nb of HP potion owned
-	private static int nbSTAPotion; // Nb of Stamina Potion owned
-	private static int nbCamouflage; //Nb of Camouflage owned
-	private static int nbMegaBooster = 5; // Nb of Mega Booster Owned
-	private static int nbCheckPoint = 5; // Nb of CheckPoint owned
+	private static int nbHPPotion = 0; // Nb of HP potion owned
+	private static int nbSTAPotion = 0; // Nb of Stamina Potion owned
+	private static int nbCamouflage = 0; //Nb of Camouflage owned
+	private static int nbMegaBooster = 0; // Nb of Mega Booster Owned
+	private static int nbCheckPoint = 0; // Nb of CheckPoint owned
 	
 	
 	// return String of items and how many the Player owns

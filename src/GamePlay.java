@@ -60,7 +60,7 @@ public class GamePlay {
 					break;
 				case "X": // this prints list of encountered monsters
 					printMonsters();
-					System.out.println("M-Menu \n\n>>> ");
+					System.out.print("M-Menu \n\n>>> ");
 					break;
 				default: 
 					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
@@ -359,8 +359,7 @@ public class GamePlay {
 			
 			switch (choice.toUpperCase()) {
 				case "I":
-					usingItem();
-					difficulty = roomLevelAt;
+					difficulty = usingItem();
 					break;
 				case "F":
 					break;
@@ -591,7 +590,7 @@ public class GamePlay {
 		
 		// if player has 0 stamina, they are given a warning
 		if (Player.getSta() == 0)
-			System.out.println("\nYou are exhausted! Your current ATK and DEX will be reduced by half in the next room!");
+			System.out.println("\nYou are exhausted! Your current ATK and DEX will be reduced by half in the next room! \n(Unless you take a STA Potion)");
 		
 		// Give the player a chance not to exit by mistake
 		System.out.print("\nEnter next room (y/n)? ");
