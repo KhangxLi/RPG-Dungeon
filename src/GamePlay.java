@@ -52,6 +52,10 @@ public class GamePlay {
 					System.out.println("We are not responsible for your death, " + Player.getName() + ".");
 					dungeon();
 					break;
+				case "X":
+					printMonsters();
+					System.out.println("M-Menu \n\n>>> ");
+					break;
 				default: 
 					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
 					break;
@@ -63,7 +67,7 @@ public class GamePlay {
 	
 	public static void menu() {
 		System.out.print("\nWhat would you like to do? \nD-Dungeon   G-Gym   S-Store   H-Home   \nP-" + Player.getName() + 
-				"'s Profile   I-Instructions   O-Options \n\n>>> ");
+				"'s Profile   I-Instructions   X-Monster Database \n\n>>> ");
 	}
 	
 	public static void instruction() {
@@ -237,6 +241,9 @@ public class GamePlay {
 		int comboM = 1;
 
 		for (int i = 0; i < nbMonster; i++) {
+			
+			Monster.setEncountered(monster[i].getID() ,Monster.getEncountered(monster[i].getID()) + 1);
+			
 			System.out.println("\nBatte " + (i+1) + ": " + Player.getBattleStats() + " vs " + monster[i]);
 			
 			System.out.print("Press Enter to continue.");
@@ -569,6 +576,16 @@ public class GamePlay {
 		catch (NumberFormatException e) {
 			System.out.print("That's not a positive integer.\n");
 			return (0);
+		}
+	}
+	
+	public static void printMonsters() {
+		for (int i = 0; i < 26; i++) {
+			if (Monster.getEncountered(i) > 0) {
+				System.out.println(new Monster(i).getMonster());
+			}
+			else
+				System.out.println("Monsters will appear here as you meet them.\n");
 		}
 	}
 	
