@@ -3,6 +3,10 @@ Text-based survival rpg that plays a bit like pokemon.
 This game consolidates all the material I've learned in my first programming course: OOP with Java. This includes Classes and Arrays. It is played in the command-line. Java is needed to run the program.
 
 ### Game Instructions
+
+#### D-Dungeon: 
+When you enter a room, you must defeat all monsters in it. Each room generates random monsters while staying within the its difficulty level. The room number indicates its difficulty level. The deeper you are in the dungeon, the higher the room number and the more variable the room can be. You can leave the dungeon everytime you finish a room. Watch your HP and STA levels. You are very weakened when you enter a room with 0 stamina and you lose the game when you have 0 HP.  
+
 #### P-Profile: 
 You can access your profile from anywhere except for in the dungeon by entering 'P'.  
 __HP__: is your health. If it reaches 0, it's game over.  
@@ -34,6 +38,4 @@ You gain Moni by defeating monsters. The formula for Moni gained for each monste
 #### X-Monster Database: 
 This shows you monster you've encountered and their information.  
 
-#### D-Dungeon: 
-When you enter a room, you must defeat all monsters in it. Each room generates random monsters while staying within the its difficulty level. The room number indicates its difficulty level. The deeper you are in the dungeon, the higher the room number, the more variable each room will be. You can leave the dungeon everytime you finish a room. Watch your HP and STA levels. You are very weakened when you don't have stamina and you lose the game when you have 0 HP.  
 
