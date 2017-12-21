@@ -7,6 +7,8 @@ public class GamePlay {
 	static boolean gameOver = false;
 	static boolean inDungeon = false;
 	static int exhaustCount = 0;
+	static int checkPoint = 0;
+	static int level = 0;
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -40,6 +42,11 @@ public class GamePlay {
 					System.out.print("Welcome to the gym! What kind of training do you want?\n");
 					gym();
 					break;
+				case "S":
+					loading("Counting Moni", 1, 500);
+					System.out.println("Welcome dear customer! What item would you like to buy?\n");
+					store();
+					break;
 				case "D":
 					loading("Entering dungeon", 1, 500);
 					System.out.println("We are not responsible for your death, " + Player.getName() + ".");
@@ -66,18 +73,130 @@ public class GamePlay {
 	public static void dungeon() throws InterruptedException {
 		inDungeon = true;
 		int i = 0;
-		System.out.print("\nEnter the first room (y/n)? ");
-		choice = key.nextLine();
-		if (choice.equalsIgnoreCase("y")) {
-			while (inDungeon) {
-				enterRoom(++i);
+		if (checkPoint > 0) {
+			System.out.println("\nGo to CheckPoint room " + checkPoint + " (y/n)? " );
+			choice = key.nextLine();
+			if (choice.equalsIgnoreCase("y")) {
+				while (inDungeon) {
+					enterRoom(checkPoint + (i++));
+				}
+				checkPoint = 0;
 			}
+			else
+				System.out.print("\nEnter the first room (y/n)? ");
+			choice = key.nextLine();
+			if (choice.equalsIgnoreCase("y")) {
+				while (inDungeon) {
+					enterRoom(++i);
+				}
+			}
+			else
+				menu();
 		}
-		else
-			menu();
+		else {
+			System.out.print("\nEnter the first room (y/n)? ");
+			choice = key.nextLine();
+			if (choice.equalsIgnoreCase("y")) {
+				while (inDungeon) {
+					enterRoom(++i);
+				}
+			}
+			else
+				menu();
+		}
 	}
 	
 	public static void enterRoom(int difficulty) throws InterruptedException {
+		level += 1;
+		do {
+			System.out.print("\nI-Items   F-Fight \n>>> ");
+			choice = key.nextLine();
+			
+			switch (choice.toUpperCase()) {
+				case "I":
+					System.out.print(Player.getItems() + "\nWhat to use? A-B-C-D-E in respective order \n>>> ");
+					choice = key.nextLine();
+					switch (choice.toUpperCase()) {
+						case "A":
+							if (Player.getNbHPPotion() == 0)
+								System.out.println("You don't have any HP Potion.");
+							else {
+								System.out.println("Use a HP potion (y/n)? ");
+								choice = key.nextLine();
+								if (choice.equalsIgnoreCase("y")) {
+									Player.setNbHPPotion(Player.getNbHPPotion() - 1);
+									Player.setHP(Player.getHP() + 5);
+									System.out.println("You recovered 5 HP!");
+								}
+							}
+							break;
+						case "B":
+							if (Player.getNbSTAPotion() == 0)
+								System.out.println("You don't have any STA Potion.");
+							else {
+								System.out.println("Use a STA potion (y/n)? ");
+								choice = key.nextLine();
+								if (choice.equalsIgnoreCase("y")) {
+									Player.setNbSTAPotion(Player.getNbSTAPotion() - 1);
+									Player.setSta(Player.getSta() + 5);
+									System.out.println("You recovered 5 STA!");
+								}
+							}
+							break;
+						case "C":
+							if (Player.getNbCamouflage() == 0)
+								System.out.println("You don't have any Camouflage.");
+							else {
+								System.out.println("Use a Camouflage (y/n)? ");
+								choice = key.nextLine();
+								if (choice.equalsIgnoreCase("y")) {
+									Player.setNbCamouflage(Player.getNbCamouflage() - 1);
+									difficulty += 1;
+									level += 1;
+									System.out.println("You skipped one room!");
+								}
+							}
+							break;
+						case "D":
+							if (Player.getNbMegaBooster() == 0)
+								System.out.println("You don't have any Mega Booster.");
+							else {
+								System.out.println("Use a Mega Booster (y/n)? ");
+								choice = key.nextLine();
+								if (choice.equalsIgnoreCase("y")) {
+									Player.setNbMegaBooster(Player.getNbMegaBooster() - 1);
+									difficulty += 5;
+									level += 5;
+									System.out.println("You skipped 5 rooms!");
+								}
+							}
+							break;
+						case "E":
+							if (Player.getNbCheckPoint() == 0)
+								System.out.println("You don't have any CheckPoint.");
+							else {
+								System.out.println("Use a CheckPoint (y/n)? ");
+								choice = key.nextLine();
+								if (choice.equalsIgnoreCase("y")) {
+									Player.setNbCheckPoint(Player.getNbCheckPoint() - 1);
+									checkPoint = level;
+									System.out.println("You placed a CheckPoint in room " + level);
+								}
+							}
+							break;
+						default:
+							System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+							break;
+					}
+					break;
+				case "F":
+					break;
+				default:
+					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+					break;
+			}
+		} while (!choice.equalsIgnoreCase("F"));
+		
 		if (Player.getSta() == 0) {
 			Player.setATK(Player.getATK()/2);
 			Player.setDEX(Player.getDEX()/2);
@@ -205,15 +324,20 @@ public class GamePlay {
 			System.out.print("\nAre you sure? Room progress will be lost (y/n). ");
 			choice = key.nextLine();
 			if(choice.equalsIgnoreCase("y")) {
-				menu();
+				loading("Getting to safety", 1, 500);
 				inDungeon = false;
+				level = 0;
+				menu();
 			}
 			else {
 				System.out.print("Enter next room (y/n)? ");
 				choice = key.nextLine();
 				if(!choice.equalsIgnoreCase("y")) {
-					menu();
+					loading("Getting to safety", 1, 500);
 					inDungeon = false;
+					level = 0;
+					menu();
+					
 				}
 			}
 		}
@@ -224,11 +348,12 @@ public class GamePlay {
 		gameOver = true;
 		inDungeon = false;
 		System.out.println(Player.getString());
+		key.close();
 		System.exit(0);
 	}
 	
 	public static void home() throws InterruptedException {
-		System.out.print("\nR-Rest   E-Eat   I-Inventory   M-Menu \n\n>>> ");
+		System.out.print("\nR-Rest   E-Eat   M-Menu \n\n>>> ");
 		choice = key.nextLine();
 		do {
 			switch (choice.toUpperCase()) {
@@ -350,8 +475,95 @@ public class GamePlay {
 		}
 	}
 	
-	public static void learn() {
+	public static void store() throws InterruptedException {
+		System.out.println("Moni: " + Player.getMoni());
+		System.out.println("A-HP potion (30Moni)");
+		System.out.println("B-STA potion (30Moni)");
+		System.out.println("C-Camouflage (30Moni)");
+		System.out.println("D-Mega Booster (50Moni)");
+		System.out.print("E-CheckPoint (100Moni) \n\nM-Menu \n\n>>> ");
 		
+		choice = key.nextLine();
+		do {
+		switch (choice.toUpperCase()) {
+			case "A":
+				System.out.println("Drink this potion and recover 5 hp!");
+				Player.setNbHPPotion(Player.getNbHPPotion() + buying(30, "HP potion"));
+				store();
+				break;
+			case "B":
+				System.out.println("Drink this potion and recover 5 stamina!");
+				Player.setNbSTAPotion(Player.getNbSTAPotion() + buying(30, "STA potion"));
+				store();
+				break;
+			case "C":
+				System.out.println("Wear this camouflage to skip right through one dungeon room!");
+				Player.setNbCamouflage(Player.getNbCamouflage() + buying(30, "Camouflage"));
+				store();
+				break;
+			case "D":
+				System.out.println("Use this booster to skip through 5 rooms!");
+				Player.setNbMegaBooster(Player.getNbMegaBooster() + buying(50, "Mega Booster"));
+				store();
+				break;
+			case "E":
+				System.out.println("Use this to save a checkpoint to return to in the dungeon! ONE USE ONLY AND EACH USE OVERRIDES.");
+				Player.setNbCheckPoint(Player.getNbCheckPoint() + buying(100, "CheckPoint"));
+				store();
+				break;
+			case "P": 
+				System.out.print(Player.getString() + "\n\nPress Enter to go back.");
+				choice = key.nextLine();
+				store();
+			case "M":
+				loading("Thank you for shopping with us!", 1, 500);
+				menu();
+				break;
+			default:
+				System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+				choice = key.nextLine();
+				break;
+			}
+		} while (!choice.equalsIgnoreCase("m"));
+	}
+	
+	public static int buying(int cost, String item) throws InterruptedException {
+		int qty;
+		try {
+			System.out.print("How many " + item + " would you like to buy? ");
+			qty = Integer.parseInt(key.nextLine());
+			
+			if (qty < 0)
+				do {
+					System.out.print("Please enter a positive integer: ");
+					qty = Integer.parseInt(key.nextLine());
+				} while (qty < 0);
+			
+			if (qty == 0)
+				return (0);
+			else {
+				if (qty * cost > Player.getMoni()) {
+					System.out.print("Sorry, you don't have enough Moni for that.\n");
+					return (0);
+				}
+				else {
+					System.out.print("Exchange " + (qty * cost) + "Moni for " + qty + " " + item + " (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setMoni(Player.getMoni() - (qty * cost));
+						loading("Buying", 1, 400);
+						System.out.println("\nYou bought " + qty + " " + item + "\n");
+						return (qty);
+					}
+					else
+						return(0);
+				}
+			}
+		}
+		catch (NumberFormatException e) {
+			System.out.print("That's not a positive integer.\n");
+			return (0);
+		}
 	}
 	
 	public static void loading(String text, int repeat, int time) throws InterruptedException {

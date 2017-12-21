@@ -1,22 +1,68 @@
 
 public class Player {
-	private static int atk = 2;
+	private static int atk = 50;
 	private static int def = 0;
-	private static int dex = 2;
+	private static int dex = 50;
 	private static int hp = 10;
 	private static int nbOfKills;
 	private static int deepestRoom;
 	private static int maxSta;
 	private static int maxHP;
 	private static int sta = 10;
-	private static int moni;
+	private static int moni= 1000;
 	private static int xp = 10;
 	private static String name;
 	
+	private static int nbHPPotion;
+	private static int nbSTAPotion;
+	private static int nbCamouflage;
+	private static int nbMegaBooster = 5;
+	private static int nbCheckPoint = 5;
+	
+	public static int getNbHPPotion() {
+		return (nbHPPotion);
+	}
+	public static void setNbHPPotion(int x) {
+		nbHPPotion = x;
+	}
+	
+	public static int getNbSTAPotion() {
+		return (nbSTAPotion);
+	}
+	public static void setNbSTAPotion(int x) {
+		nbSTAPotion = x;
+	}
+	
+	public static int getNbCamouflage() {
+		return (nbCamouflage);
+	}
+	public static void setNbCamouflage(int x) {
+		nbCamouflage = x;
+	}
+	
+	public static int getNbMegaBooster() {
+		return (nbMegaBooster);
+	}
+	public static void setNbMegaBooster(int x) {
+		nbMegaBooster = x;
+	}
+	
+	public static int getNbCheckPoint() {
+		return (nbCheckPoint);
+	}
+	public static void setNbCheckPoint(int x) {
+		nbCheckPoint = x;
+	}
+	
+	public static String getItems() {
+		return("Items \nHP potion: " + getNbHPPotion() + "   STA potion: " + getNbSTAPotion() + "   Camouflage: " + getNbCamouflage() + "\nMega Booster: " +
+	getNbMegaBooster() + "   CheckPoint: " + getNbCheckPoint()) + "   Moni: " + getMoni();
+	}
 	
 	public static String getString() {
-		return ("Your Stats \n\nHP: " + getHP() + "/" + getMaxHP() + "   ATK: " + getATK() + "   DEF: " + getDEF() + "   DEX: " + getDEX() + "\nSTA: " + getSta() + "/" +
-	getMaxSta() + "   XP: " + getXP() + "   Moni: " + getMoni() + "   Monsters Defeated: " + getNbOfKills()) + "   Deepest Room Attained: " + getDeepestRoom();
+		return (getName() + "'s Profile \n\nHP: " + getHP() + "/" + getMaxHP() + "   ATK: " + getATK() + "   DEF: " + getDEF() + "   DEX: " + getDEX() + "\nSTA: " + 
+	getSta() + "/" + getMaxSta() + "   XP: " + getXP() + "   Monsters Defeated: " + getNbOfKills() + "   Deepest Room Attained: " + 
+	getDeepestRoom() + "\n\n" + getItems());
 	}
 	
 	public static String getBattleStats() {
