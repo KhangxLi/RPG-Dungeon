@@ -2,7 +2,7 @@
 Text-based survival rpg that plays a bit like pokemon.  
 This game consolidates all the material I've learned in my first programming course: OOP with Java. This includes Classes and Arrays. It is played in the command-line. Java is needed to run the program.
 
-### Instructions
+### Game Instructions
 #### P-Profile: 
 You can access your profile from anywhere except for in the dungeon by entering 'P'.  
 __HP__: is your health. If it reaches 0, it's game over.  
