@@ -492,6 +492,8 @@ public class GamePlay {
 			
 			// Present each battle
 			System.out.println("\nBatte " + (i+1) + ": " + monster[i] + " vs " + Player.getBattleStats());
+			if (Player.getSta() <= 0)
+				System.out.println("Your stamina is at 0. Use will power to finish this room!\n");
 			
 			System.out.print("Press Enter to continue.");
 			choice = key.nextLine();
