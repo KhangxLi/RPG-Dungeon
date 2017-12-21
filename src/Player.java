@@ -11,7 +11,7 @@ public class Player {
 	private static String name; // Player's name
 
 	// Currency attributes
-	private static int moni= 1000; // Player's money to exchange
+	private static int moni= 0; // Player's money to exchange
 	private static int xp = 10; // Player's experience points to exchange
 	
 	// Score attributes

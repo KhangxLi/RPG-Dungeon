@@ -97,9 +97,9 @@ public class Monster {
 			return (getType() + "(" + getATK() + "ATK, " + getDEX() + "DEX, " + getHP() + "HP)");
 		}
 		
-		// return monster id and stats and the number of times it has been encountered
+		// return monster id, level and stats and the number of times it has been encountered
 		public String getMonster() {
-			return (getType() + "ID#: " + getID() + "   " + getATK() + "ATK, " + getDEX() + "DEX, " + getMaxHP() + "HP, encountered " + 
+			return (getType() + ", ID#: " + getID() + ", " + getATK() + "ATK, " + getDEX() + "DEX, " + getMaxHP() + "HP, Level: " + getLevel() + ", encountered " + 
 		(getEncountered(getID()) > 1 ? getEncountered(getID()) + " times.\n" : getEncountered(getID()) + " time.\n"));
 		}
 		

@@ -12,9 +12,11 @@ public class GamePlay {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
+		// Ask for the player's name
 		System.out.print("What will your name be? ");
 		Player.setName(key.nextLine());
 		
+		// Welcome and ask if player wants to see instructions
 		System.out.println("\nWelcome to Dungeon Survival, " + Player.getName() + ".");
 		System.out.print("See instructions? (y/n) ");
 		choice = key.nextLine();
@@ -32,6 +34,9 @@ public class GamePlay {
 					break;
 				case "P": // this prints the Player's information
 					System.out.print(Player.getString() + "\n\nM-Menu\n\n>>> "); 
+					break;
+				case "I": // this opens the instructions
+					instruction();
 					break;
 				case "H": // this goes to home()
 					loading("Getting comfortable", 1, 500);
@@ -74,7 +79,9 @@ public class GamePlay {
 	
 	// The instructions
 	public static void instruction() {
-		System.out.print("instructions...");
+		System.out.print("\nInstructions \n\nTrain in the gym and raid the dungeon. Don't let your HP reach 0. If you enter a dungeon room, "
+				+ "\nyou must defeat all monsters in it. Return home to recover and find useful items in the store."
+				+ "\nDetailed instructions can be found at github.com/KhangxLi/RPG-Dungeon \n");
 	}
 	
 	// At home the player can recover stamina and health
@@ -565,10 +572,10 @@ public class GamePlay {
 			
 			// if player won, they lose a stamina, gain xp and moni
 			else {
-				Player.setSta(Player.getSta() - 1);
-				Player.setXP(Player.getXP() + monster[i].getID() + 1);
-				Player.setMoni(Player.getMoni() + monster[i].getLevel()*3);
-				Player.setNbOfKills(Player.getNbOfKills() + 1);
+				Player.setSta(Player.getSta() - 1); // lose a stamina
+				Player.setXP(Player.getXP() + monster[i].getID() + 1); // get XP
+				Player.setMoni(Player.getMoni() + monster[i].getLevel()*3); // get Moni
+				Player.setNbOfKills(Player.getNbOfKills() + 1); // get more kills
 				
 				System.out.println("\nYou won the battle. You gained +" + (monster[i].getID()+1) + "XP, +" + (monster[i].getLevel()*3) + "Moni and -1STA");
 				
@@ -582,9 +589,9 @@ public class GamePlay {
 		// When the player has defeated every monster in the room, they can choose to get out of dungeon or continue
 		System.out.print("\nYou have defeated every monster in this room. \n\nHP: " + Player.getHP() + "   STA: " + Player.getSta());
 		
-		// if player has 0 stamine, they are given a warning
+		// if player has 0 stamina, they are given a warning
 		if (Player.getSta() == 0)
-			System.out.println("\nYou are tired! Your current ATK and DEX will be reduced by half in the next room!");
+			System.out.println("\nYou are exhausted! Your current ATK and DEX will be reduced by half in the next room!");
 		
 		// Give the player a chance not to exit by mistake
 		System.out.print("\nEnter next room (y/n)? ");
@@ -616,6 +623,7 @@ public class GamePlay {
 		gameOver = true;
 		inDungeon = false;
 		System.out.println(Player.getString());
+		System.out.println("\nThank you for playing!");
 		key.close();
 		System.exit(0);
 	}
