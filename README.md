@@ -36,6 +36,6 @@ You can see your items on your profile.
 You gain Moni by defeating monsters. The formula for Moni gained for each monster is the monster's level times 3.  
 
 #### X-Monster Database: 
-This shows you monster you've encountered and their information.  
+This shows the monster you've encountered and their information.  
 
 
