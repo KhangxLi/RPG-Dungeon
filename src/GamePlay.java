@@ -8,7 +8,7 @@ public class GamePlay {
 	static boolean inDungeon = false;
 	static int exhaustCount = 0;
 	static int checkPoint = 0;
-	static int level = 0;
+	static int roomLevelAt = 1;
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -77,21 +77,25 @@ public class GamePlay {
 			System.out.println("\nGo to CheckPoint room " + checkPoint + " (y/n)? " );
 			choice = key.nextLine();
 			if (choice.equalsIgnoreCase("y")) {
+				roomLevelAt = checkPoint;
 				while (inDungeon) {
 					enterRoom(checkPoint + (i++));
+					roomLevelAt += 1;
 				}
-				checkPoint = 0;
 			}
-			else
+			else {
 				System.out.print("\nEnter the first room (y/n)? ");
-			choice = key.nextLine();
-			if (choice.equalsIgnoreCase("y")) {
-				while (inDungeon) {
-					enterRoom(++i);
+				choice = key.nextLine();
+				if (choice.equalsIgnoreCase("y")) {
+					roomLevelAt = 1;
+					while (inDungeon) {
+						enterRoom(++i);
+						roomLevelAt += 1;
+					}
 				}
+				else
+					menu();
 			}
-			else
-				menu();
 		}
 		else {
 			System.out.print("\nEnter the first room (y/n)? ");
@@ -99,6 +103,7 @@ public class GamePlay {
 			if (choice.equalsIgnoreCase("y")) {
 				while (inDungeon) {
 					enterRoom(++i);
+					roomLevelAt += 1;
 				}
 			}
 			else
@@ -106,88 +111,91 @@ public class GamePlay {
 		}
 	}
 	
+	public static int usingItem() {
+		System.out.print(Player.getItems() + "\n\nWhat to use? \n>>> ");
+		choice = key.nextLine();
+		switch (choice.toUpperCase()) {
+			case "A":
+				if (Player.getNbHPPotion() == 0)
+					System.out.println("You don't have any HP Potion.");
+				else {
+					System.out.println("Use a HP potion (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setNbHPPotion(Player.getNbHPPotion() - 1);
+						Player.setHP(Player.getHP() + 5);
+						System.out.println("You recovered 5 HP!");
+					}
+				}
+				break;
+			case "B":
+				if (Player.getNbSTAPotion() == 0)
+					System.out.println("You don't have any STA Potion.");
+				else {
+					System.out.println("Use a STA potion (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setNbSTAPotion(Player.getNbSTAPotion() - 1);
+						Player.setSta(Player.getSta() + 5);
+						System.out.println("You recovered 5 STA!");
+					}
+				}
+				break;
+			case "C":
+				if (Player.getNbCamouflage() == 0)
+					System.out.println("You don't have any Camouflage.");
+				else {
+					System.out.println("Use a Camouflage (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setNbCamouflage(Player.getNbCamouflage() - 1);
+						roomLevelAt += 1;
+						System.out.println("You skipped one room!");
+					}
+				}
+				break;
+			case "D":
+				if (Player.getNbMegaBooster() == 0)
+					System.out.println("You don't have any Mega Booster.");
+				else {
+					System.out.println("Use a Mega Booster (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setNbMegaBooster(Player.getNbMegaBooster() - 1);
+						roomLevelAt += 5;
+						System.out.println("You skipped 5 rooms!");
+					}
+				}
+				break;
+			case "E":
+				if (Player.getNbCheckPoint() == 0)
+					System.out.println("You don't have any CheckPoint.");
+				else {
+					System.out.println("Use a CheckPoint (y/n)? ");
+					choice = key.nextLine();
+					if (choice.equalsIgnoreCase("y")) {
+						Player.setNbCheckPoint(Player.getNbCheckPoint() - 1);
+						checkPoint = roomLevelAt;
+						System.out.println("You placed a CheckPoint in room " + roomLevelAt);
+					}
+				}
+				break;
+			default:
+				System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+				break;
+		}
+		return (roomLevelAt);
+	}
+	
 	public static void enterRoom(int difficulty) throws InterruptedException {
-		level += 1;
 		do {
 			System.out.print("\nI-Items   F-Fight \n>>> ");
 			choice = key.nextLine();
 			
 			switch (choice.toUpperCase()) {
 				case "I":
-					System.out.print(Player.getItems() + "\nWhat to use? A-B-C-D-E in respective order \n>>> ");
-					choice = key.nextLine();
-					switch (choice.toUpperCase()) {
-						case "A":
-							if (Player.getNbHPPotion() == 0)
-								System.out.println("You don't have any HP Potion.");
-							else {
-								System.out.println("Use a HP potion (y/n)? ");
-								choice = key.nextLine();
-								if (choice.equalsIgnoreCase("y")) {
-									Player.setNbHPPotion(Player.getNbHPPotion() - 1);
-									Player.setHP(Player.getHP() + 5);
-									System.out.println("You recovered 5 HP!");
-								}
-							}
-							break;
-						case "B":
-							if (Player.getNbSTAPotion() == 0)
-								System.out.println("You don't have any STA Potion.");
-							else {
-								System.out.println("Use a STA potion (y/n)? ");
-								choice = key.nextLine();
-								if (choice.equalsIgnoreCase("y")) {
-									Player.setNbSTAPotion(Player.getNbSTAPotion() - 1);
-									Player.setSta(Player.getSta() + 5);
-									System.out.println("You recovered 5 STA!");
-								}
-							}
-							break;
-						case "C":
-							if (Player.getNbCamouflage() == 0)
-								System.out.println("You don't have any Camouflage.");
-							else {
-								System.out.println("Use a Camouflage (y/n)? ");
-								choice = key.nextLine();
-								if (choice.equalsIgnoreCase("y")) {
-									Player.setNbCamouflage(Player.getNbCamouflage() - 1);
-									difficulty += 1;
-									level += 1;
-									System.out.println("You skipped one room!");
-								}
-							}
-							break;
-						case "D":
-							if (Player.getNbMegaBooster() == 0)
-								System.out.println("You don't have any Mega Booster.");
-							else {
-								System.out.println("Use a Mega Booster (y/n)? ");
-								choice = key.nextLine();
-								if (choice.equalsIgnoreCase("y")) {
-									Player.setNbMegaBooster(Player.getNbMegaBooster() - 1);
-									difficulty += 5;
-									level += 5;
-									System.out.println("You skipped 5 rooms!");
-								}
-							}
-							break;
-						case "E":
-							if (Player.getNbCheckPoint() == 0)
-								System.out.println("You don't have any CheckPoint.");
-							else {
-								System.out.println("Use a CheckPoint (y/n)? ");
-								choice = key.nextLine();
-								if (choice.equalsIgnoreCase("y")) {
-									Player.setNbCheckPoint(Player.getNbCheckPoint() - 1);
-									checkPoint = level;
-									System.out.println("You placed a CheckPoint in room " + level);
-								}
-							}
-							break;
-						default:
-							System.out.print("Sorry, that is not a valid option.\n\n>>> ");
-							break;
-					}
+					usingItem();
+					difficulty = roomLevelAt;
 					break;
 				case "F":
 					break;
@@ -326,7 +334,6 @@ public class GamePlay {
 			if(choice.equalsIgnoreCase("y")) {
 				loading("Getting to safety", 1, 500);
 				inDungeon = false;
-				level = 0;
 				menu();
 			}
 			else {
@@ -335,7 +342,6 @@ public class GamePlay {
 				if(!choice.equalsIgnoreCase("y")) {
 					loading("Getting to safety", 1, 500);
 					inDungeon = false;
-					level = 0;
 					menu();
 					
 				}

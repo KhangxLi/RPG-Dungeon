@@ -55,8 +55,8 @@ public class Player {
 	}
 	
 	public static String getItems() {
-		return("Items \nHP potion: " + getNbHPPotion() + "   STA potion: " + getNbSTAPotion() + "   Camouflage: " + getNbCamouflage() + "\nMega Booster: " +
-	getNbMegaBooster() + "   CheckPoint: " + getNbCheckPoint()) + "   Moni: " + getMoni();
+		return("Items \nA-HP potion: " + getNbHPPotion() + "   B-STA potion: " + getNbSTAPotion() + "   C-Camouflage: " + getNbCamouflage() + "\nD-Mega Booster: " +
+	getNbMegaBooster() + "   E-CheckPoint: " + getNbCheckPoint()) + "   Moni: " + getMoni();
 	}
 	
 	public static String getString() {
