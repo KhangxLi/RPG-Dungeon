@@ -1,13 +1,14 @@
 public class Monster {
-		private int atk;
-		private int hp;
-		private int maxHP;
-		private int dex;
-		private int id;
-		private int level;
-		private String type;
-		private static int[] encountered = new int[26];
+		private int atk; // monster's attack power
+		private int hp; // monster's current hp
+		private int maxHP; // monster's maximum hp
+		private int dex; // monster's dexterity
+		private int id; // monster's id number
+		private int level; // monster's level
+		private String type; // monster's type
+		private static int[] encountered = new int[26]; // array with each index representing monster's id and containing the number of times it has been encountered by Player
 		
+		// Monster constructor taking an id as argument
 		public Monster(int id) {
 			switch (id) {
 				case 0: 
@@ -91,20 +92,25 @@ public class Monster {
 			}
 		}
 		
+		// toString for in combat
 		public String toString() {
 			return (getType() + "(" + getATK() + "ATK, " + getDEX() + "DEX, " + getHP() + "HP)");
 		}
 		
+		// return monster id and stats and the number of times it has been encountered
 		public String getMonster() {
 			return (getType() + "ID#: " + getID() + "   " + getATK() + "ATK, " + getDEX() + "DEX, " + getMaxHP() + "HP, encountered " + 
 		(getEncountered(getID()) > 1 ? getEncountered(getID()) + " times.\n" : getEncountered(getID()) + " time.\n"));
 		}
 		
+		// return a monster's level which depends on its attack, dexterity and max hp
 		public int getLevel() {
 			level = (int)((getATK() + getDEX() + getMaxHP())/3);
 			return (level);
 		}
 		
+		
+		// getters and setters
 		public int getID() {
 			return (id);
 		}
@@ -132,6 +138,8 @@ public class Monster {
 			return(maxHP);
 		}
 		
+		
+		// getter and setter taking monster id as argument
 		public static int getEncountered(int id) {
 			return (encountered[id]);
 		}
