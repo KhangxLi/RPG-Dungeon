@@ -128,7 +128,10 @@ public class Monster {
 		}
 		
 		public int getHP() {
-			return(hp);
+			if (hp <= 0)
+				return (0);
+			else
+				return(hp);
 		}
 		public void setHP(int x) {
 			this.hp = x;
