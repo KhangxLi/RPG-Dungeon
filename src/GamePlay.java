@@ -8,7 +8,7 @@ public class GamePlay {
 	static boolean inDungeon = false; // player is in dungeon or not
 	static int exhaustCount = 0; // nb of times player chooses to fight while stamina is at 0
 	static int checkPoint = 0; // where the checkpoint is placed, if == 0 then it is not placed
-	static int roomLevelAt = 1; // in which room the player is or will be at (used to control checkPoint)
+	static int roomLevelAt = 0; // in which room the player is or will be at (used to control checkPoint)
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -87,8 +87,9 @@ public class GamePlay {
 	// At home the player can recover stamina and health
 	public static void home() throws InterruptedException {
 		System.out.print("\nR-Rest   E-Eat   M-Menu \n\n>>> ");
-		choice = key.nextLine();
+		
 		do {
+			choice = key.nextLine();
 			switch (choice.toUpperCase()) {
 				case "M":
 					loading("Getting ready", 1, 500);
@@ -118,7 +119,6 @@ public class GamePlay {
 					break;
 				default:
 					System.out.print("Sorry, that is not a valid option.\n\n>>>");
-					choice = key.nextLine();
 					break;
 			}
 		} while(!choice.equalsIgnoreCase("M"));
@@ -128,16 +128,16 @@ public class GamePlay {
 	public static void gym() throws InterruptedException {
 		// the cost of each stat depends on how trained that stat is
 		int atkCost = Player.getATK() + 5;
-		int defCost = Player.getDEF() + 8;
-		int dexCost = Player.getDEX() + 5;
+		int defCost = Player.getDEF() + 10;
+		int dexCost = Player.getDEX() + 8;
 		
 		// Show the player's available xp and stats and their choices
 		System.out.print("\nXP: " + Player.getXP() + "   STA: " + Player.getSta() + "/" + Player.getMaxSta() +
 				"\nATK: " + Player.getATK() + "   A-Attack(" + atkCost + "XP) \nDEF: " + Player.getDEF() + "   B-Defense(" + defCost + "XP) \nDEX: " +
 				Player.getDEX() + "   C-Dexterity(" + dexCost + "XP) \n\nM-Menu \n\n>>> ");
 		
-		choice = key.nextLine();
 		do {
+			choice = key.nextLine();
 			switch (choice.toUpperCase()) {
 				case "A":
 					Player.setATK(Player.getATK() + training(atkCost, "ATK"));
@@ -161,7 +161,6 @@ public class GamePlay {
 					break;
 				default:
 					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
-					choice = key.nextLine();
 					break;
 			}
 		} while(!choice.equalsIgnoreCase("M"));
@@ -222,46 +221,45 @@ public class GamePlay {
 		System.out.println("D-Mega Booster (50Moni)");
 		System.out.print("E-CheckPoint (100Moni) \n\nM-Menu \n\n>>> ");
 		
-		choice = key.nextLine();
 		do {
-		switch (choice.toUpperCase()) {
-			case "A":
-				System.out.println("Drink this potion and recover 5 hp!");
-				Player.setNbHPPotion(Player.getNbHPPotion() + buying(30, "HP potion"));
-				store();
-				break;
-			case "B":
-				System.out.println("Drink this potion and recover 5 stamina!");
-				Player.setNbSTAPotion(Player.getNbSTAPotion() + buying(30, "STA potion"));
-				store();
-				break;
-			case "C":
-				System.out.println("Wear this camouflage to skip right through one dungeon room!");
-				Player.setNbCamouflage(Player.getNbCamouflage() + buying(30, "Camouflage"));
-				store();
-				break;
-			case "D":
-				System.out.println("Use this booster to skip through 5 rooms!");
-				Player.setNbMegaBooster(Player.getNbMegaBooster() + buying(50, "Mega Booster"));
-				store();
-				break;
-			case "E":
-				System.out.println("Use this to save a checkpoint to return to in the dungeon! ONE USE ONLY AND EACH USE OVERRIDES.");
-				Player.setNbCheckPoint(Player.getNbCheckPoint() + buying(100, "CheckPoint"));
-				store();
-				break;
-			case "P": 
-				System.out.print(Player.getString() + "\n\nPress Enter to go back.");
-				choice = key.nextLine();
-				store();
-			case "M":
-				loading("Thank you for shopping with us!", 1, 500);
-				menu();
-				break;
-			default:
-				System.out.print("Sorry, that is not a valid option.\n\n>>> ");
-				choice = key.nextLine();
-				break;
+			choice = key.nextLine();
+			switch (choice.toUpperCase()) {
+				case "A":
+					System.out.println("Drink this potion and recover 5 hp!");
+					Player.setNbHPPotion(Player.getNbHPPotion() + buying(30, "HP potion"));
+					store();
+					break;
+				case "B":
+					System.out.println("Drink this potion and recover 5 stamina!");
+					Player.setNbSTAPotion(Player.getNbSTAPotion() + buying(30, "STA potion"));
+					store();
+					break;
+				case "C":
+					System.out.println("Wear this camouflage to skip right through one dungeon room!");
+					Player.setNbCamouflage(Player.getNbCamouflage() + buying(30, "Camouflage"));
+					store();
+					break;
+				case "D":
+					System.out.println("Use this booster to skip through 5 rooms!");
+					Player.setNbMegaBooster(Player.getNbMegaBooster() + buying(50, "Mega Booster"));
+					store();
+					break;
+				case "E":
+					System.out.println("Use this to save a checkpoint to return to in the dungeon! ONE USE ONLY AND EACH USE OVERRIDES.");
+					Player.setNbCheckPoint(Player.getNbCheckPoint() + buying(100, "CheckPoint"));
+					store();
+					break;
+				case "P": 
+					System.out.print(Player.getString() + "\n\nPress Enter to go back.");
+					choice = key.nextLine();
+					store();
+				case "M":
+					loading("Thank you for shopping with us!", 1, 500);
+					menu();
+					break;
+				default:
+					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+					break;
 			}
 		} while (!choice.equalsIgnoreCase("m"));
 	}
@@ -310,27 +308,24 @@ public class GamePlay {
 	// When they go to the dungeon. Player enters room.
 	public static void dungeon() throws InterruptedException {
 		inDungeon = true;
-		int i = 0;
-		
+
 		// if checkpoint exists, ask if player wants to go there
 		if (checkPoint > 0) {
 			System.out.println("\nGo to CheckPoint room " + checkPoint + " (y/n)? " );
 			choice = key.nextLine();
 			if (choice.equalsIgnoreCase("y")) {
-				roomLevelAt = checkPoint;
-				while (inDungeon) {
-					enterRoom(checkPoint + (i++));
-					roomLevelAt += 1;
+				roomLevelAt = checkPoint - 1;
+				while (inDungeon) {	
+					enterRoom(++roomLevelAt);
 				}
 			}
 			else {
 				System.out.print("\nEnter the first room (y/n)? ");
 				choice = key.nextLine();
 				if (choice.equalsIgnoreCase("y")) {
-					roomLevelAt = 1;
+					roomLevelAt = 0;
 					while (inDungeon) {
-						enterRoom(++i);
-						roomLevelAt += 1;
+						enterRoom(++roomLevelAt);
 					}
 				}
 				else
@@ -341,9 +336,8 @@ public class GamePlay {
 			System.out.print("\nEnter the first room (y/n)? ");
 			choice = key.nextLine();
 			if (choice.equalsIgnoreCase("y")) {
-				while (inDungeon) {
-					enterRoom(++i);
-					roomLevelAt += 1;
+				while (inDungeon) {		
+					enterRoom(++roomLevelAt);
 				}
 			}
 			else
@@ -364,7 +358,7 @@ public class GamePlay {
 				case "F":
 					break;
 				default:
-					System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+					System.out.print("Sorry, that is not a valid option.\n ");
 					break;
 			}
 		} while (!choice.equalsIgnoreCase("F"));
@@ -472,7 +466,7 @@ public class GamePlay {
 				}
 				break;
 			default:
-				System.out.print("Sorry, that is not a valid option.\n\n>>> ");
+				System.out.print("Sorry, that is not a valid option.\n ");
 				break;
 		}
 		return (roomLevelAt);
@@ -604,6 +598,7 @@ public class GamePlay {
 			if(choice.equalsIgnoreCase("y")) {
 				loading("Getting to safety", 1, 500);
 				inDungeon = false;
+				roomLevelAt = 0;
 				menu();
 			}
 			else {
@@ -612,6 +607,7 @@ public class GamePlay {
 				if(!choice.equalsIgnoreCase("y")) {
 					loading("Getting to safety", 1, 500);
 					inDungeon = false;
+					roomLevelAt = 0;
 					menu();
 					
 				}
