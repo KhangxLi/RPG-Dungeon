@@ -33,58 +33,58 @@ public class Monster {
 					this.id = id; type = "Coyote"; atk = 3; dex = 3; hp = 3; maxHP = 3;
 					break;
 				case 7:
-					this.id = id; type = "Wolf"; atk = 4; dex = 3; hp = 3; maxHP = 3;
+					this.id = id; type = "Wolf"; atk = 4; dex = 3; hp = 5; maxHP = 5;
 					break;
 				case 8:
-					this.id = id; type = "Tiger"; atk = 5; dex = 3; hp = 3; maxHP = 3;
+					this.id = id; type = "Tiger"; atk = 5; dex = 3; hp = 6; maxHP = 6;
 					break;
 				case 9:
-					this.id = id; type = "Grizzly"; atk = 4; dex = 3; hp = 5; maxHP = 5;
+					this.id = id; type = "Grizzly"; atk = 4; dex = 3; hp = 7; maxHP = 7;
 					break;
 				case 10:
-					this.id = id; type = "Undead"; atk = 3; dex = 1; hp = 9; maxHP = 9;
+					this.id = id; type = "Undead"; atk = 3; dex = 1; hp = 10; maxHP = 10;
 					break;
 				case 11:
-					this.id = id; type = "Ghost"; atk = 2; dex = 5; hp = 7; maxHP = 7;
+					this.id = id; type = "Ghost"; atk = 2; dex = 5; hp = 10; maxHP = 10;
 					break;
 				case 12:
-					this.id = id; type = "Demon"; atk = 4; dex = 4; hp = 7; maxHP = 7;
+					this.id = id; type = "Demon"; atk = 4; dex = 4; hp = 9; maxHP = 9;
 					break;
 				case 13:
-					this.id = id; type = "Golem"; atk = 4; dex = 2; hp = 10; maxHP = 10;
+					this.id = id; type = "Golem"; atk = 4; dex = 2; hp = 15; maxHP = 15;
 					break;
 				case 14:
-					this.id = id; type = "Sword Monkey"; atk = 5; dex = 4; hp = 8; maxHP = 8;
+					this.id = id; type = "Sword Monkey"; atk = 5; dex = 4; hp = 11; maxHP = 11;
 					break;
 				case 15:
-					this.id = id; type = "Giant Gator"; atk = 5; dex = 4; hp = 9; maxHP = 9;
+					this.id = id; type = "Giant Gator"; atk = 5; dex = 4; hp = 10; maxHP = 10;
 					break;
 				case 16:
-					this.id = id; type = "Fire Spirit"; atk = 6; dex = 5; hp = 8; maxHP = 8;
+					this.id = id; type = "Fire Spirit"; atk = 6; dex = 5; hp = 12; maxHP = 12;
 					break;
 				case 17:
-					this.id = id; type = "Water Spirit"; atk = 6; dex = 6; hp = 8; maxHP = 8;
+					this.id = id; type = "Water Spirit"; atk = 6; dex = 6; hp = 13; maxHP = 13;
 					break;
 				case 18:
-					this.id = id; type = "Dark Spirit"; atk = 5; dex = 5; hp = 11; maxHP = 11;
+					this.id = id; type = "Dark Spirit"; atk = 5; dex = 5; hp = 15; maxHP = 15;
 					break;
 				case 19:
-					this.id = id; type = "Pure Spirit"; atk = 6; dex = 5; hp = 11; maxHP = 11;
+					this.id = id; type = "Pure Spirit"; atk = 6; dex = 5; hp = 16; maxHP = 16;
 					break;
 				case 20:
-					this.id = id; type = "Abomination"; atk = 8; dex = 5; hp = 10; maxHP = 10;
+					this.id = id; type = "Abomination"; atk = 8; dex = 5; hp = 16; maxHP = 16;
 					break;
 				case 21:
-					this.id = id; type = "Ouroboros"; atk = 7; dex = 6; hp = 11; maxHP = 11;
+					this.id = id; type = "Ouroboros"; atk = 7; dex = 6; hp = 18; maxHP = 18;
 					break;
 				case 22:
-					this.id = id; type = "Dragan"; atk = 9; dex = 6; hp = 12; maxHP = 12;
+					this.id = id; type = "Dragan"; atk = 9; dex = 6; hp = 19; maxHP = 19;
 					break;
 				case 23:
-					this.id = id; type = "Kraniki"; atk = 9; dex = 7; hp = 12; maxHP = 12;
+					this.id = id; type = "Kraniki"; atk = 9; dex = 7; hp = 25; maxHP = 25;
 					break;
 				case 24:
-					this.id = id; type = "MotherShip"; atk = 10; dex = 1; hp = 20; maxHP = 20;
+					this.id = id; type = "MotherShip"; atk = 10; dex = 1; hp = 30; maxHP = 30;
 					break;
 				default:
 					this.id = 25; type = "Yourself"; atk = Player.getATK(); dex = Player.getDEX(); hp = Player.getMaxHP();
