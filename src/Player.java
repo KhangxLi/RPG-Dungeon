@@ -87,7 +87,7 @@ public class Player {
 	}
 	
 	public static int getMaxHP() {
-		return (10 + (getATK() + getDEF() + getDEX() + getMaxSta())/3);
+		return (10 + (getDEF() + getDEX() + getMaxSta())/3);
 	}
 	public static void setMaxHP(int x) {
 		maxHP = x;
