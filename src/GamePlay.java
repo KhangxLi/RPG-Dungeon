@@ -107,7 +107,7 @@ public class GamePlay {
 					home();
 					break;
 				case "R":
-					loading("Resting", 3, 1000);
+					loading("Resting", 3, 750);
 					Player.setSta(Player.getMaxSta());
 					if (exhaustCount > 0) {
 						Player.setATK(Player.getATK() * 2 * exhaustCount);
