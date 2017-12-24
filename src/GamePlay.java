@@ -18,7 +18,7 @@ public class GamePlay {
 		
 		// Welcome and ask if player wants to see instructions
 		System.out.println("\nWelcome to Dungeon Survival, " + Player.getName() + ".");
-		System.out.print("See instructions? (y/n) ");
+		System.out.print("See instructions (y/n)? ");
 		choice = key.nextLine();
 		if (choice.equalsIgnoreCase("y"))
 			instruction();
@@ -128,7 +128,7 @@ public class GamePlay {
 	public static void gym() throws InterruptedException {
 		// the cost of each stat depends on how trained that stat is
 		int atkCost = Player.getATK() + 5;
-		int defCost = Player.getDEF() + 5;
+		int defCost = Player.getDEF() + 8;
 		int dexCost = Player.getDEX() + 5;
 		
 		// Show the player's available xp and stats and their choices
@@ -410,7 +410,7 @@ public class GamePlay {
 				if (Player.getNbHPPotion() == 0)
 					System.out.println("You don't have any HP Potion.");
 				else {
-					System.out.println("Use a HP potion (y/n)? ");
+					System.out.print("Use a HP potion (y/n)? ");
 					choice = key.nextLine();
 					if (choice.equalsIgnoreCase("y")) {
 						Player.setNbHPPotion(Player.getNbHPPotion() - 1);
@@ -423,7 +423,7 @@ public class GamePlay {
 				if (Player.getNbSTAPotion() == 0)
 					System.out.println("You don't have any STA Potion.");
 				else {
-					System.out.println("Use a STA potion (y/n)? ");
+					System.out.print("Use a STA potion (y/n)? ");
 					choice = key.nextLine();
 					if (choice.equalsIgnoreCase("y")) {
 						Player.setNbSTAPotion(Player.getNbSTAPotion() - 1);
@@ -436,7 +436,7 @@ public class GamePlay {
 				if (Player.getNbCamouflage() == 0)
 					System.out.println("You don't have any Camouflage.");
 				else {
-					System.out.println("Use a Camouflage (y/n)? ");
+					System.out.print("Use a Camouflage (y/n)? ");
 					choice = key.nextLine();
 					if (choice.equalsIgnoreCase("y")) {
 						Player.setNbCamouflage(Player.getNbCamouflage() - 1);
@@ -449,7 +449,7 @@ public class GamePlay {
 				if (Player.getNbMegaBooster() == 0)
 					System.out.println("You don't have any Mega Booster.");
 				else {
-					System.out.println("Use a Mega Booster (y/n)? ");
+					System.out.print("Use a Mega Booster (y/n)? ");
 					choice = key.nextLine();
 					if (choice.equalsIgnoreCase("y")) {
 						Player.setNbMegaBooster(Player.getNbMegaBooster() - 1);
@@ -462,7 +462,7 @@ public class GamePlay {
 				if (Player.getNbCheckPoint() == 0)
 					System.out.println("You don't have any CheckPoint.");
 				else {
-					System.out.println("Use a CheckPoint (y/n)? ");
+					System.out.print("Use a CheckPoint (y/n)? ");
 					choice = key.nextLine();
 					if (choice.equalsIgnoreCase("y")) {
 						Player.setNbCheckPoint(Player.getNbCheckPoint() - 1);
@@ -491,7 +491,7 @@ public class GamePlay {
 			Monster.setEncountered(monster[i].getID() ,Monster.getEncountered(monster[i].getID()) + 1);
 			
 			// Present each battle
-			System.out.println("\nBatte " + (i+1) + ": " + monster[i] + " vs " + Player.getBattleStats());
+			System.out.println("\nBattle " + (i+1) + ": " + monster[i] + " vs " + Player.getBattleStats());
 			if (Player.getSta() <= 0)
 				System.out.println("Your stamina is at 0. Use will power to finish this room!\n");
 			
@@ -546,7 +546,7 @@ public class GamePlay {
 					else {
 						if(Math.random()*Player.getDEX() < Math.random()*monster[i].getDEX() - comboM) {
 							comboM += 0.5;
-							System.out.println("\n" + monster[i].getType() + " is on fire! Combo attack!");
+							System.out.println("\n" + monster[i].getType() + " is on fire! Combo attack and your defense is down!");
 							Player.setHP(Player.getHP() - monster[i].getATK());
 							System.out.println(monster[i].getType() + " deals " + monster[i].getATK() + " dmg - " + Player.getName() + " has " + Player.getHP() + "HP left!");
 						}
@@ -588,7 +588,8 @@ public class GamePlay {
 		}
 		
 		// When the player has defeated every monster in the room, they can choose to get out of dungeon or continue
-		System.out.print("\nYou have defeated every monster in this room. \n\nHP: " + Player.getHP() + "   STA: " + Player.getSta());
+		System.out.print("\nYou have defeated every monster in this room. \n\nHP: " + Player.getHP() + "   STA: " + Player.getSta() + "   XP: " + Player.getXP() + "   Moni: " +
+		Player.getMoni());
 		
 		// if player has 0 stamina, they are given a warning
 		if (Player.getSta() == 0)
