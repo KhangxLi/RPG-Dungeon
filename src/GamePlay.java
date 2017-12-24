@@ -318,6 +318,7 @@ public class GamePlay {
 				while (inDungeon) {	
 					enterRoom(++roomLevelAt);
 				}
+				checkPoint = 0;
 			}
 			else {
 				System.out.print("\nEnter the first room (y/n)? ");
