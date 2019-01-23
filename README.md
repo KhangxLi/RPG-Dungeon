@@ -1,6 +1,6 @@
 # RPG-Dungeon
 Text-based survival rpg that plays a bit like pokemon.  
-This game consolidates all the material I've learned in my first programming course: OOP with Java. This includes Classes and Arrays. It is played in the command-line. Java is needed to run the program. It is easier to follow in an IDE since reading text in a terminal is a little hard.  
+This game consolidates all the material I've learned in my first programming course: OOP with Java. Java is needed to run the program. It is played in the command-line. 
 
 ### Game Instructions
 
